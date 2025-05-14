@@ -16,10 +16,6 @@ body {
     left: 20px; /* Abstand vom linken Rand */
     width: 35px; /* Breite des Buttons */
     height: 35px; /* Höhe des Buttons */
-    max-width: 12vw;
-    max-height: 12vw;
-    min-width: 32px;
-    min-height: 32px;
     border: none;
     border-radius: 50%; /* Macht den Button rund */
     background-color: #1a2c24; /* Hintergrundfarbe */
@@ -213,10 +209,6 @@ a-scene {
   right: 20px; /* Abstand vom linken Rand */
   width: 35px; /* Breite des Buttons */
   height: 35px; /* Höhe des Buttons */
-  max-width: 12vw;
-  max-height: 12vw;
-  min-width: 32px;
-  min-height: 32px;
   background-color: #1a2c24; /* Grün wie der Back-Button */
   color: #fff; /* Weißes "i" */
   border: none;
