@@ -20,7 +20,7 @@ img {
 
 }
 .inhalt {
-    margin-top: 140px; /* Reduziert den Abstand nach oben */
+    margin-top: 100px; /* Reduziert den Abstand nach oben */
     text-align: center; /* Zentriert den Inhalt horizontal */
     max-width: 90%; /* Setzt die Breite auf 80% */
 }
