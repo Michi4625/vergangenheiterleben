@@ -1,12 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
   <head>
-    <title>AR Kamera Test</title>
+    <meta charset="UTF-8" />
+    <title>AR GPS Beispiel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- A-Frame und GPS-Plugins -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-gps-camera/dist/aframe-gps-camera.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
-    <a-scene>
-      <a-box position="0 1.5 -3" color="#00FF00"></a-box>
+  <body style="margin: 0; overflow: hidden">
+    <a-scene 
+      embedded 
+      vr-mode-ui="enabled: false" 
+      renderer="logarithmicDepthBuffer: true"
+      gps-camera 
+      rotation-reader>
+      
+      <!-- Sichtbares Element zum Testen -->
+      <a-box position="0 1.5 -3" color="#FF0000"></a-box>
+
+      <!-- GPS-basiertes Bild -->
+      <a-image 
+        src="Assets/Test.png"
+        gps-entity-place="latitude: 48.212839; longitude: 15.624572"
+        look-at="[gps-camera]"
+        scale="10 10 10">
+      </a-image>
     </a-scene>
+
+    <script>
+      window.addEventListener('error', function (e) {
+        alert("Fehler: " + e.message);
+      });
+    </script>
   </body>
 </html>
