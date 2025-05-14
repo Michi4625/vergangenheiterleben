@@ -179,6 +179,7 @@ a-scene {
 
 .info-popup-content button {
   background-color: white;
+  color: #1a2c24;
   border: none;
   border-radius: 50px;
   padding: 10px 20px;
