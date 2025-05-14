@@ -1,65 +1,16 @@
-<!DOCTYPE html>
-<html lang="de">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Vergangenheit erleben</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- A-Frame und GPS-Plugins -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-gps-camera/dist/aframe-gps-camera.min.js"></script>
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-
   </head>
- <body>
-  <!-- A-Frame Szene -->
-  <a-scene
-    embedded
-    vr-mode-ui="enabled: false"
-    renderer="logarithmicDepthBuffer: true"
-    gps-camera
-    rotation-reader
-  >
-    <a-image
-      src="Assets/Test.png"
-      gps-entity-place="latitude: 48.212839; longitude: 15.624572"
-      look-at="[gps-camera]"
-      scale="10 10 10"
-    ></a-image>
-  </a-scene>
-
-  <!-- UI Overlay -->
-  <div class="top-bar">
-    <button id="back-button" class="back-button">&#x276E;</button>
-    <button id="info-button" class="info" title="Info">&#9432;</button>
-
-    <div class="live-section">
-      <div class="title-live">Live</div>
-    </div>
-    <p class="instruction">Bewegen Sie sich in Richtung der Sehenswürdigkeit</p>
-  </div>
-
-  <!-- Info-Popup -->
-  <div id="info-popup" class="info-popup hidden">
-    <div class="info-popup-content">
-      <p>
-        Das Riesenrad, das seit 1997 seine Runden dreht, zählt zu Wiens beliebtesten Sehenswürdigkeiten.
-      </p>
-      <p>
-        Die beiden englischen Konstrukteure Walter Basset und Harry Hitchins haben das 
-        <strong>Wiener Riesenrad</strong> so konstruiert, dass es im Falle eines Stromausfalls von Hand betrieben werden kann.
-      </p>
-      <button id="close-info-popup">Schließen</button>
-    </div>
-  </div>
-
-  <script>
-    window.addEventListener('error', function (e) {
-      alert("Fehler: " + e.message);
-    });
-  </script>
-  <script src="script.js"></script>
-</body>
-
+  <body>
+    <a-scene embedded gps-camera rotation-reader>
+      <a-box
+        gps-entity-place="latitude: 48.212839; longitude: 15.624572"
+        color="red"
+        scale="5 5 5"
+        look-at="[gps-camera]"
+      ></a-box>
+    </a-scene>
+  </body>
 </html>
