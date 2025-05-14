@@ -10,26 +10,33 @@
     <script src="https://unpkg.com/aframe-gps-camera/dist/aframe-gps-camera.min.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body style="margin: 0; overflow: hidden">
-    <a-scene 
-      embedded 
-      vr-mode-ui="enabled: false" 
+ <body>
+    <a-scene
+      embedded
+      vr-mode-ui="enabled: false"
       renderer="logarithmicDepthBuffer: true"
-      gps-camera 
-      rotation-reader>
-      
-      <!-- Sichtbares Element zum Testen -->
-      <a-box position="0 1.5 -3" color="#FF0000"></a-box>
-
-      <!-- GPS-basiertes Bild -->
-      <a-image 
+      gps-camera
+      rotation-reader
+    >
+      <a-image
         src="Assets/Test.png"
         gps-entity-place="latitude: 48.212839; longitude: 15.624572"
         look-at="[gps-camera]"
-        scale="10 10 10">
-      </a-image>
+        scale="10 10 10"
+      ></a-image>
     </a-scene>
 
+    <!-- UI-Overlay -->
+    <div class="ui-overlay">
+      <div class="top-bar">
+        <button class="btn" onclick="window.location.href='index.html'">Zurück</button>
+        <button class="btn" onclick="window.location.href='info.html'">Info</button>
+      </div>
+      <div class="title">Live</div>
+      <div class="bottom-bar">Bewegen Sie sich in Richtung der Sehenswürdigkeit</div>
+    </div>
+
+    <!-- Optional: Fehleranzeige -->
     <script>
       window.addEventListener('error', function (e) {
         alert("Fehler: " + e.message);
