@@ -1,15 +1,11 @@
 body {
-    font-family: 'Roboto';
-    font-size: 20px;
-    margin: 0;
-    padding: 20px;
-    background: #fdfdfd;
-    color: #1a2c24;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+}
 
   .back-button {
     position: absolute;
@@ -134,17 +130,27 @@ body {
     white-space: nowrap; /* Verhindert, dass der Text umbricht */
 }
 
-.top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none; /* UI bleibt klickbar, Buttons brauchen trotzdem pointer-events */
-    z-index: 1000;
+a-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 0;
 }
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
 .top-bar button {
-    pointer-events: auto; /* Buttons klickbar machen */
+  pointer-events: auto;
 }
 .title-live {
     background: #dde0e4;
