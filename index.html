@@ -28,35 +28,7 @@
       </div>
     </div>
 
-    <script>
-      // Zeige das Pop-up an, wenn der Start-Button geklickt wird
-      document.getElementById("start-button").addEventListener("click", function () {
-        document.getElementById("cameraPopup").style.display = "flex"; // Zeige Pop-up
-      });
+    <script src="script.js"></script>
 
-      const allowBtn = document.getElementById("allowBtn");
-      const cancelBtn = document.getElementById("cancelBtn");
-
-      // Wenn der Nutzer Zugriff erlaubt
-      allowBtn.addEventListener("click", function () {
-        // Kamera wird aktiviert
-        navigator.mediaDevices.getUserMedia({ video: true })
-          .then(function (stream) {
-            // Nach Kamerazugriff zur AR-Seite weiterleiten
-            window.location.href = "ar-erlebnis.html";
-          })
-          .catch(function (err) {
-            alert("Zugriff verweigert oder Fehler: " + err);
-          });
-        
-        // Schließe das Pop-up
-        document.getElementById("cameraPopup").style.display = "none";
-      });
-
-      // Wenn der Nutzer den Zugriff verweigert
-      cancelBtn.addEventListener("click", function () {
-        document.getElementById("cameraPopup").style.display = "none"; // Schließe das Pop-up
-      });
-    </script>
   </body>
 </html>

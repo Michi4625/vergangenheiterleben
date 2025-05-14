@@ -1,28 +1,111 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Jetzt ist das DOM geladen, du kannst sicher auf IDs zugreifen
-    function showScan() {
-        document.getElementById('startScreen').classList.add('hidden');
-        document.getElementById('scanScreen').classList.remove('hidden');
+  // Startscreen → zeigt das Kamera-Popup
+  const startButton = document.getElementById("start-button");
+  if (startButton) {
+    startButton.addEventListener("click", function () {
+      document.getElementById("cameraPopup").style.display = "flex";
+    });
+  }
+
+  // Kamera-Zugriffs-Buttons
+  const allowBtn = document.getElementById("allowBtn");
+  const cancelBtn = document.getElementById("cancelBtn");
+
+  if (allowBtn) {
+    allowBtn.addEventListener("click", function () {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+          window.location.href = "ar-erlebnis.html";
+        })
+        .catch(function (err) {
+          alert("Zugriff verweigert oder Fehler: " + err);
+        });
+
+      document.getElementById("cameraPopup").style.display = "none";
+    });
+  }
+
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", function () {
+      document.getElementById("cameraPopup").style.display = "none";
+    });
+  }
+
+  // AR-Seite: Wechsel von Startscreen zu Scan (falls vorhanden)
+  const scanScreen = document.getElementById('scanScreen');
+  const startScreen = document.getElementById('startScreen');
+
+  function showScan() {
+    if (startScreen && scanScreen) {
+      startScreen.classList.add('hidden');
+      scanScreen.classList.remove('hidden');
     }
+  }
 
-    const backButton = document.getElementById("back-button");
+  // Global verfügbar machen
+  window.showScan = showScan;
 
+  // Zurück-Button auf AR-Seite
+  const backButton = document.getElementById("back-button");
+  if (backButton) {
     backButton.addEventListener("click", () => {
-        window.location.href = "index.html"; // Leitet explizit zur index.html weiter
+      window.location.href = "index.html";
+    });
+  }
+
+  // Info-Popup öffnen & schließen
+  const infoButton = document.getElementById('info-button');
+  const closeInfoButton = document.getElementById('close-info-popup');
+
+  if (infoButton && closeInfoButton) {
+    infoButton.addEventListener('click', function () {
+      document.getElementById('info-popup').classList.remove('hidden');
     });
 
-    function requestCamera() {
-        alert('Hier würdest du die Kameraberechtigung anfragen und den Scanner starten.');
-    }
+    closeInfoButton.addEventListener('click', function () {
+      document.getElementById('info-popup').classList.add('hidden');
+    });
+  }
 
-    // Optional: Wenn du die Funktionen global brauchst
-    window.showScan = showScan;
-    window.requestCamera = requestCamera;
+  // Kameraanfragefunktion (optional, z. B. für spätere Erweiterung)
+  function requestCamera() {
+    alert('Hier würdest du die Kameraberechtigung anfragen und den Scanner starten.');
+  }
 
-    document.getElementById('info-button').addEventListener('click', function() {
-    document.getElementById('info-popup').classList.remove('hidden');
+  window.addEventListener('gps-camera-update-position', (e) => {
+    console.log('Position:', e.detail.position);
   });
-  document.getElementById('close-info-popup').addEventListener('click', function() {
-  document.getElementById('info-popup').classList.add('hidden');
+
+  window.requestCamera = requestCamera;
 });
-});
+
+
+/* QR-Code Scanner (optional)
+const scanButton = document.getElementById("scan-button");
+      const popup = document.getElementById("cameraPopup");
+      const cancelBtn = document.getElementById("cancelBtn");
+      const allowBtn = document.getElementById("allowBtn");
+      const cameraFeed = document.getElementById("cameraFeed");
+
+      scanButton.addEventListener("click", () => {
+        popup.style.display = "flex";
+      });
+
+      cancelBtn.addEventListener("click", () => {
+        popup.style.display = "none";
+      });
+
+      allowBtn.addEventListener("click", () => {
+        popup.style.display = "none";
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(stream => {
+            cameraFeed.style.display = "block";
+            cameraFeed.srcObject = stream;
+            cameraFeed.play();
+          })
+          .catch(err => {
+            alert("Zugriff verweigert oder Fehler: " + err);
+          });
+      });
+
+      */

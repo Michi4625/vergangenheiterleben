@@ -30,33 +30,7 @@
       </div>
     </div>
 
-    <script>
-      const scanButton = document.getElementById("scan-button");
-      const popup = document.getElementById("cameraPopup");
-      const cancelBtn = document.getElementById("cancelBtn");
-      const allowBtn = document.getElementById("allowBtn");
-      const cameraFeed = document.getElementById("cameraFeed");
-
-      scanButton.addEventListener("click", () => {
-        popup.style.display = "flex";
-      });
-
-      cancelBtn.addEventListener("click", () => {
-        popup.style.display = "none";
-      });
-
-      allowBtn.addEventListener("click", () => {
-        popup.style.display = "none";
-        navigator.mediaDevices.getUserMedia({ video: true })
-          .then(stream => {
-            cameraFeed.style.display = "block";
-            cameraFeed.srcObject = stream;
-            cameraFeed.play();
-          })
-          .catch(err => {
-            alert("Zugriff verweigert oder Fehler: " + err);
-          });
-      });
-    </script>
+    <script src="script.js"></script>
+    
   </body>
 </html>
