@@ -4,7 +4,14 @@
     <script src="https://unpkg.com/aframe-gps-camera/dist/aframe-gps-camera.min.js"></script>
   </head>
   <body>
-    <a-scene embedded gps-camera rotation-reader>
+    <a-scene
+  embedded
+  vr-mode-ui="enabled: false"
+  webxr="optionalFeatures: hit-test;"
+  renderer="logarithmicDepthBuffer: true"
+  gps-camera
+  rotation-reader
+>
       <a-box
         gps-entity-place="latitude: 48.212839; longitude: 15.624572"
         color="red"
@@ -14,3 +21,4 @@
     </a-scene>
   </body>
 </html>
+
