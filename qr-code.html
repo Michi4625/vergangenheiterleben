@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR-Code Scannen</title>
+    <link rel="stylesheet" href="style.css">
+   
+  </head>
+  <body>
+    <button id="back-button" class="back-button">
+        &#x276E; <!-- Chevron-Symbol -->
+      </button>
+    <div class="screen" id="scanScreen">
+    <div class="inhalt-qr">
+      <p>Scanne einen QR-Code um ein historisches Bild in deiner realen Umgebung zu erleben.</p>
+      <button id="scan-button">QR-Code scannen</button>
+      <video id="cameraFeed" width="100%" height="auto" style="display:none;"></video>
+    </div>
+    </div>
+
+    <!-- POP-UP -->
+    <div class="overlay" id="cameraPopup">
+      <div class="popup">
+        <p>Diese Anwendung benötigt Zugriff auf deine Kamera, um den QR-Code zu scannen.</p>
+        <div class="popup-buttons">
+          <button class="cancel" id="cancelBtn">Abbrechen</button>
+          <button class="allow" id="allowBtn">Zugriff erlauben</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const scanButton = document.getElementById("scan-button");
+      const popup = document.getElementById("cameraPopup");
+      const cancelBtn = document.getElementById("cancelBtn");
+      const allowBtn = document.getElementById("allowBtn");
+      const cameraFeed = document.getElementById("cameraFeed");
+
+      scanButton.addEventListener("click", () => {
+        popup.style.display = "flex";
+      });
+
+      cancelBtn.addEventListener("click", () => {
+        popup.style.display = "none";
+      });
+
+      allowBtn.addEventListener("click", () => {
+        popup.style.display = "none";
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(stream => {
+            cameraFeed.style.display = "block";
+            cameraFeed.srcObject = stream;
+            cameraFeed.play();
+          })
+          .catch(err => {
+            alert("Zugriff verweigert oder Fehler: " + err);
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vergangenheit erleben</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Startscreen -->
+    <div class="screen" id="startScreen">
+      <div class="inhalt">
+        <img src="Assets/Logo_Zeichenfläche 1-02.png" alt="Logo Vergangenheit erleben" />      
+        <p>Erleben Sie historische Bilder als wären Sie vor Ort und erhalten Sie spannende Einblicke in Augmented Reality!</p>
+      </div>
+      <button id="start-button">Starten</button>
+    </div>
+
+    <script>
+  document.getElementById("start-button").addEventListener("click", function () {
+    alert("Button wurde gedrückt"); // Sichtbar auf dem Handy!
+    window.location.href = "ar-erlebnis.html";
+  });
+</script>
+
+  </body>
+</html>
