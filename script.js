@@ -18,4 +18,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Optional: Wenn du die Funktionen global brauchst
     window.showScan = showScan;
     window.requestCamera = requestCamera;
+
+    document.getElementById('info-button').addEventListener('click', function() {
+    document.getElementById('info-popup').classList.remove('hidden');
+  });
+  document.getElementById('close-info-popup').addEventListener('click', function() {
+  document.getElementById('info-popup').classList.add('hidden');
+});
 });
