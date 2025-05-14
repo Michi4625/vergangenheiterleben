@@ -63,7 +63,7 @@ body {
   
   #start-button, #scan-button {
     position: absolute; /* Positioniert den Button relativ zum nächsten positionierten Container */
-    bottom: 70px; /* Abstand vom unteren Rand */
+    bottom: 30px; /* Abstand vom unteren Rand */
     left: 50%; /* Zentriert den Button horizontal */
     transform: translateX(-50%); /* Korrigiert die Zentrierung */
     padding: 10px 20px; /* Innenabstand für etwas Platz um den Text */
@@ -247,7 +247,7 @@ a-scene {
 
 .instruction {
   position: absolute;
-  bottom: 70px; /* Abstand vom unteren Rand */
+  bottom: 30px; /* Abstand vom unteren Rand */
   left: 50%;
   transform: translateX(-50%);
   background: #dde0e4;
