@@ -29,12 +29,17 @@
   >
   <a-camera gps-new-camera id="camera" rotation-reader positionMinAccuracy="30" gpsMinDistance="5"></a-camera>
 
+  <a-entity 
+  gps-new-entity-place="latitude: 47.8557501; longitude: 14.5099384"
+  rotation="0 180 0" 
+  scale="20 20 1"
+  >
   <a-image
     src="Assets/Haus alt.png"
-    gps-new-entity-place="latitude: 47.8557501; longitude: 14.5099384"
-    look-at="#camera"
-    scale="20 20 1"   
+    width="3"
+    height="2"
   ></a-image>
+  </a-entity>
 </a-scene>
 
   <!-- UI Overlay -->
