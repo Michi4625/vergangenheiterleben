@@ -2,26 +2,57 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Location-based AR.js demo</title>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <title>AR.js GPS Test</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@3.4.5/aframe/build/aframe-ar.min.js"></script>
+    <style>
+      body, html { margin: 0; overflow: hidden; }
+      #loadingMessage {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        text-align: center;
+        color: white;
+        font-size: 1.5em;
+        z-index: 9999;
+      }
+    </style>
   </head>
 
-  <body style="margin: 0; overflow: hidden;">
+  <body>
+    <div id="loadingMessage">📍 Initialisiere GPS AR...</div>
+
     <a-scene
       vr-mode-ui="enabled: false"
       embedded
-      arjs="sourceType: webcam; debugUIEnabled: false;"
+      arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
+      renderer="antialias: true; alpha: true"
     >
-      <a-text
-        value="This content will always face you."
-        look-at="[gps-camera]"
-        scale="50 50 50"
-        gps-entity-place="latitude: 47.8559300; longitude: 14.5099957;"
-      ></a-text>
-      <a-camera gps-camera rotation-reader> </a-camera>
+      <!-- Kamera mit GPS und Glättung -->
+      <a-camera
+        id="camera1"
+        gps-new-camera="gpsMinDistance: 5"
+        look-controls-enabled="false"
+        arjs-device-orientation-controls="smoothingFactor: 0.1"
+      ></a-camera>
+
+      <!-- GPS-verankertes rotes Rechteck -->
+      <a-box
+        color="red"
+        depth="2"
+        height="2"
+        width="2"
+        gps-new-entity-place="latitude: 47.855795; longitude: 14.509948"
+        position="0 1 0"
+      ></a-box>
     </a-scene>
+
+    <script>
+      // Warte, bis GPS verfügbar ist, dann entferne den Ladehinweis
+      window.addEventListener('gps-camera-update-position', function () {
+        const loadingEl = document.getElementById('loadingMessage');
+        if (loadingEl) loadingEl.style.display = 'none';
+      });
+    </script>
   </body>
 </html>
