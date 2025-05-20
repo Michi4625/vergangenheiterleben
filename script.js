@@ -109,3 +109,16 @@ const scanButton = document.getElementById("scan-button");
       });
 
       */
+
+      window.addEventListener('gps-camera-update-position', (e) => {
+  const coords = e.detail.position;
+  console.log("Aktuelle Koordinaten:", coords);
+
+  const plane = document.createElement('a-plane');
+  plane.setAttribute('gps-new-entity-place', `latitude: ${coords.latitude}; longitude: ${coords.longitude}`);
+  plane.setAttribute('height', '3');
+  plane.setAttribute('width', '3');
+  plane.setAttribute('color', 'blue');
+  plane.setAttribute('look-at', '[gps-camera]');
+  document.querySelector('a-scene').appendChild(plane);
+});
