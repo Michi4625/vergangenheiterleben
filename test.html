@@ -29,12 +29,9 @@
       renderer="antialias: true; alpha: true"
     >
       <!-- Kamera mit GPS und Glättung -->
-      <a-camera
-        id="camera1"
-        gps-new-camera="gpsMinDistance: 5"
-        look-controls-enabled="false"
-        arjs-device-orientation-controls="smoothingFactor: 0.1"
-      ></a-camera>
+   
+        <a-camera gps-new-camera rotation-reader></a-camera>
+ 
 
       <!-- GPS-verankertes rotes Rechteck -->
       <a-box
@@ -43,7 +40,7 @@
         height="2"
         width="2"
         gps-new-entity-place="latitude: 47.855795; longitude: 14.509948"
-        position="0 1 0"
+        position="0 0 0"
       ></a-box>
     </a-scene>
 
