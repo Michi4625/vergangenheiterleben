@@ -30,7 +30,7 @@
   <a-camera gps-new-camera id="camera" rotation-reader positionMinAccuracy="30" gpsMinDistance="5"></a-camera>
 
   <a-entity 
-  gps-new-entity-place="latitude: 47.8557501; longitude: 14.5099384"
+  gps-new-entity-place="latitude: 47.85583; longitude: 14.51"
   rotation="0 180 0" 
   scale="20 20 1"
   >
@@ -41,7 +41,20 @@
   ></a-image>
   </a-entity>
 </a-scene>
-
+<div id="gps-data" style="
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: monospace;
+    z-index: 999;
+">
+  Lade GPS-Daten…
+</div>
   <!-- UI Overlay -->
   <div class="top-bar">
     <button id="back-button" class="back-button">&#x276E;</button>
@@ -68,7 +81,23 @@
   </div>
 
   <script src="script.js"></script>
-  
+  <script>
+  const gpsDisplay = document.getElementById('gps-data');
+
+  window.addEventListener('gps-camera-update-position', (e) => {
+    const coords = e.detail.position;
+    gpsDisplay.innerHTML = `
+      <strong>GPS:</strong><br>
+      Latitude: ${coords.latitude.toFixed(6)}<br>
+      Longitude: ${coords.longitude.toFixed(6)}<br>
+      Genauigkeit: ±${coords.accuracy} m
+    `;
+  });
+
+  window.addEventListener('gps-camera-error', (e) => {
+    gpsDisplay.innerHTML = `GPS-Fehler: ${e.detail.message}`;
+  });
+</script>
 </body>
 
 </html>
