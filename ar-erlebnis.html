@@ -25,17 +25,17 @@
     arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
     renderer="logarithmicDepthBuffer: true;"
   >
-  <a-camera gps-new-camera id="camera" rotation-reader positionMinAccuracy="30" gpsMinDistance="5"></a-camera>
+  <a-camera gps-new-camera id="camera" rotation-reader positionMinAccuracy="5" gpsMinDistance="1"></a-camera>
 
   <a-entity 
-  gps-new-entity-place="latitude: 47.85583; longitude: 14.51"
+  gps-new-entity-place="latitude: 47.855807; longitude: 14.509938"
   rotation="0 180 0" 
-  scale="20 20 1"
+  position="0 1 0"
   >
   <a-image
     src="Assets/Haus alt.png"
-    width="3"
-    height="2"
+    width="1"
+    height="0.7"
   ></a-image>
   </a-entity>
 </a-scene>
