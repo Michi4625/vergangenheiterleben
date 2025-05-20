@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // AR-Seite: Wechsel von Startscreen zu Scan (falls vorhanden)
+  // AR-Seite: Wechsel von Startscreen zu Scan 
   const scanScreen = document.getElementById('scanScreen');
   const startScreen = document.getElementById('startScreen');
 
