@@ -24,24 +24,30 @@
     arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
     renderer="logarithmicDepthBuffer: true;"
   >
-  <a-camera gps-new-camera id="camera" rotation-reader positionMinAccuracy="5" gpsMinDistance="1"></a-camera>
-<a-text 
-  value="Debug Text" 
-  gps-new-entity-place="latitude: 47.855807; longitude: 14.509938" 
-  scale="20 20 20">
-</a-text>
-<a-entity 
-  gps-new-entity-place="latitude: 47.855807; longitude: 14.509938"
-  position="0 1 0"
-  scale="10 10 10"
->
-  <a-image
-    src="Assets/Haus alt.png"
-    width="2"
-    height="1.4"
-  ></a-image>
-</a-entity>
-</a-scene>
+  <a-camera 
+    gps-new-camera 
+    id="camera" 
+    rotation-reader 
+    positionMinAccuracy="8" 
+    gpsMinDistance="5">
+  </a-camera>
+    <a-text 
+    value="Debug Text" 
+    gps-new-entity-place="latitude: 47.855807; longitude: 14.509938" 
+    scale="10 10 10">
+  </a-text>
+  <a-entity 
+    gps-new-entity-place="latitude: 47.855807; longitude: 14.509938"
+    position="0 1 0"
+    scale="10 10 10"
+  >
+    <a-image
+      src="Assets/Haus alt.png"
+      width="2"
+      height="1.4"
+    ></a-image>
+  </a-entity>
+  </a-scene>
 <div id="gps-data" style="
     position: absolute;
     bottom: 10px;
