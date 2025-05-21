@@ -10,55 +10,40 @@
     <button onclick="startCamera()">Kamera starten</button><br><br>
     <video id="video" autoplay playsinline width="100%" height="auto"></video>
 
-    <script>
-      let currentStream;
+<script>
+  async function startARWithBackCamera() {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const videoDevices = devices.filter(d => d.kind === 'videoinput');
 
-      async function init() {
-        try {
-          // Erstmalige Kamera-Freigabe
-          await navigator.mediaDevices.getUserMedia({ video: true });
-          await getCameras();
-        } catch (err) {
-          alert('Bitte Kamera-Zugriff erlauben.');
-        }
-      }
+    // Versuch, die Rückkamera zu finden
+    let backCamera = videoDevices.find(d => d.label.toLowerCase().includes('back'));
 
-      async function getCameras() {
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const videoDevices = devices.filter(device => device.kind === 'videoinput');
-        const select = document.getElementById('cameraSelect');
-        select.innerHTML = ''; // Clear alte Optionen
+    // Fallback: wenn keine explizite Rückkamera erkannt wird
+    if (!backCamera && videoDevices.length > 1) {
+      backCamera = videoDevices[1]; // oft die zweite ist "hinten"
+    } else if (!backCamera) {
+      backCamera = videoDevices[0]; // absolute Fallback
+    }
 
-        videoDevices.forEach(device => {
-          const option = document.createElement('option');
-          option.value = device.deviceId;
-          option.text = device.label || `Kamera ${select.length + 1}`;
-          select.appendChild(option);
-        });
-      }
+    if (!backCamera) {
+      alert("Keine Kamera gefunden");
+      return;
+    }
 
-      async function startCamera() {
-        if (currentStream) {
-          currentStream.getTracks().forEach(track => track.stop());
-        }
+    // Kamera starten (du kannst das z. B. in AR.js dynamisch weitergeben)
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { deviceId: backCamera.deviceId }
+    });
 
-        const deviceId = document.getElementById('cameraSelect').value;
-        const constraints = {
-          video: {
-            deviceId: { exact: deviceId },
-            width: { ideal: 1280 },
-            height: { ideal: 720 }
-          }
-        };
+    const videoEl = document.querySelector('video');
+    if (videoEl) {
+      videoEl.srcObject = stream;
+    }
+  }
 
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia(constraints);
-          currentStream = stream;
-          document.getElementById('video').srcObject = stream;
-        } catch (err) {
-          alert('Kamerastart fehlgeschlagen: ' + err.message);
-        }
-      }
-    </script>
+  window.addEventListener('load', () => {
+    startARWithBackCamera();
+  });
+</script>
   </body>
 </html>
