@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Kamera auswählen</title>
+    <title>Kamera-Auswahl</title>
   </head>
   <body>
-    <h2>Kamera auswählen</h2>
+    <h2>Verfügbare Kameras</h2>
+    <button onclick="init()">Erst Kamera freigeben, dann Kameras anzeigen</button><br><br>
     <select id="cameraSelect"></select>
-    <button onclick="startCamera()">Start</button>
-    <br><br>
+    <button onclick="startCamera()">Kamera starten</button><br><br>
     <video id="video" autoplay playsinline width="100%" height="auto"></video>
 
     <script>
       let currentStream;
 
+      async function init() {
+        try {
+          // Erstmalige Kamera-Freigabe
+          await navigator.mediaDevices.getUserMedia({ video: true });
+          await getCameras();
+        } catch (err) {
+          alert('Bitte Kamera-Zugriff erlauben.');
+        }
+      }
+
       async function getCameras() {
         const devices = await navigator.mediaDevices.enumerateDevices();
         const videoDevices = devices.filter(device => device.kind === 'videoinput');
         const select = document.getElementById('cameraSelect');
+        select.innerHTML = ''; // Clear alte Optionen
 
         videoDevices.forEach(device => {
           const option = document.createElement('option');
@@ -43,14 +54,11 @@
         try {
           const stream = await navigator.mediaDevices.getUserMedia(constraints);
           currentStream = stream;
-          const videoElement = document.getElementById('video');
-          videoElement.srcObject = stream;
+          document.getElementById('video').srcObject = stream;
         } catch (err) {
-          alert('Kamerazugriff fehlgeschlagen: ' + err.message);
+          alert('Kamerastart fehlgeschlagen: ' + err.message);
         }
       }
-
-      getCameras();
     </script>
   </body>
 </html>
