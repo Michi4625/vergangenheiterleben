@@ -27,7 +27,13 @@
       <a-camera position="0 0 0" look-controls enabled="false"></a-camera>
 
       <!-- Marker -->
-      <a-marker preset="hiro">
+      <a-marker 
+        preset="hiro"
+        smooth="true" 
+        smoothCount="10" 
+        smoothTolerance="0.01" 
+        smoothThreshold="2"
+      >
         <a-image 
           src="Assets/Haus alt.png" 
           position="0 0 0" 
