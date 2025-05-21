@@ -1,31 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.js GPS Test</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://rawcdn.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar-nft.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ar.js@3.4.5/aframe/build/aframe-ar.min.js"></script>
-
+    <title>Kamera auswählen</title>
   </head>
-  <body style="margin: 0; overflow: hidden;">
-    <a-scene
-      vr-mode-ui="enabled: false"
-      embedded
-      arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: true;"
-    >
-      <!-- Kamera mit GPS -->
-      <a-camera
-        gps-new-camera="gpsMinDistance: 5"
-        look-controls-enabled="false"
-        arjs-device-orientation-controls="smoothingFactor: 0.1"
-      ></a-camera>
+  <body>
+    <h2>Kamera auswählen</h2>
+    <select id="cameraSelect"></select>
+    <button onclick="startCamera()">Start</button>
+    <br><br>
+    <video id="video" autoplay playsinline width="100%" height="auto"></video>
 
-      <!-- Rotes Rechteck bei Koordinaten -->
-      <a-box
-        position="0 0 0"
-        color="red"
-        gps-new-entity-place="latitude: 47.8561; longitude: 14.51"
-      ></a-box>
-    </a-scene>
+    <script>
+      let currentStream;
+
+      async function getCameras() {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = devices.filter(device => device.kind === 'videoinput');
+        const select = document.getElementById('cameraSelect');
+
+        videoDevices.forEach(device => {
+          const option = document.createElement('option');
+          option.value = device.deviceId;
+          option.text = device.label || `Kamera ${select.length + 1}`;
+          select.appendChild(option);
+        });
+      }
+
+      async function startCamera() {
+        if (currentStream) {
+          currentStream.getTracks().forEach(track => track.stop());
+        }
+
+        const deviceId = document.getElementById('cameraSelect').value;
+        const constraints = {
+          video: {
+            deviceId: { exact: deviceId },
+            width: { ideal: 1280 },
+            height: { ideal: 720 }
+          }
+        };
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia(constraints);
+          currentStream = stream;
+          const videoElement = document.getElementById('video');
+          videoElement.srcObject = stream;
+        } catch (err) {
+          alert('Kamerazugriff fehlgeschlagen: ' + err.message);
+        }
+      }
+
+      getCameras();
+    </script>
   </body>
 </html>
