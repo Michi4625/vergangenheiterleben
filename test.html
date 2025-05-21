@@ -1,49 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
   <head>
-    <title>Kamera-Auswahl</title>
+    <meta charset="UTF-8" />
+    <title>Marker-AR Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <!-- A-Frame & AR.js -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
+
+    <style>
+      body, html {
+        margin: 0;
+        overflow: hidden;
+        font-family: sans-serif;
+      }
+    </style>
   </head>
   <body>
-    <h2>Verfügbare Kameras</h2>
-    <button onclick="init()">Erst Kamera freigeben, dann Kameras anzeigen</button><br><br>
-    <select id="cameraSelect"></select>
-    <button onclick="startCamera()">Kamera starten</button><br><br>
-    <video id="video" autoplay playsinline width="100%" height="auto"></video>
+    <a-scene
+      embedded
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+    >
+      <!-- Kamera -->
+      <a-camera position="0 0 0" look-controls enabled="false"></a-camera>
 
-<script>
-  async function startARWithBackCamera() {
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    const videoDevices = devices.filter(d => d.kind === 'videoinput');
+      <!-- Marker -->
+      <a-marker preset="hiro">
+        <a-image 
+          src="Assets/Haus alt.png" 
+          position="0 0 0" 
+          rotation="-90 0 0" 
+          width="2" 
+          height="1.4">
+        </a-image>
+      </a-marker>
 
-    // Versuch, die Rückkamera zu finden
-    let backCamera = videoDevices.find(d => d.label.toLowerCase().includes('back'));
-
-    // Fallback: wenn keine explizite Rückkamera erkannt wird
-    if (!backCamera && videoDevices.length > 1) {
-      backCamera = videoDevices[1]; // oft die zweite ist "hinten"
-    } else if (!backCamera) {
-      backCamera = videoDevices[0]; // absolute Fallback
-    }
-
-    if (!backCamera) {
-      alert("Keine Kamera gefunden");
-      return;
-    }
-
-    // Kamera starten (du kannst das z. B. in AR.js dynamisch weitergeben)
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { deviceId: backCamera.deviceId }
-    });
-
-    const videoEl = document.querySelector('video');
-    if (videoEl) {
-      videoEl.srcObject = stream;
-    }
-  }
-
-  window.addEventListener('load', () => {
-    startARWithBackCamera();
-  });
-</script>
+      <!-- Für Markerloses Tracking (optional) -->
+      <a-entity camera></a-entity>
+    </a-scene>
   </body>
 </html>
